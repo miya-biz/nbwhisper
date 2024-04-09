@@ -62,7 +62,9 @@
     "@jupyterlab/coreutils": "^6.0.0",
     "@jupyterlab/services": "^7.0.0",
     "linq": "^4.0.2",
-    "react-draggable": "^4.4.6"
+    "os-browserify": "^0.3.0",
+    "react-draggable": "^4.4.6",
+    "sora-js-sdk": "^2023.2.0"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^4.0.0",
@@ -111,7 +113,8 @@
       }
     },
     "extension": true,
-    "outputDir": "nbwhisper/labextension"
+    "outputDir": "nbwhisper/labextension",
+    "webpackConfig": "webpack.config.js"
   },
   "eslintIgnore": [
     "node_modules",

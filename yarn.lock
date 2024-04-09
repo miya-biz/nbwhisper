@@ -8531,9 +8531,11 @@ __metadata:
     linq: ^4.0.2
     mkdirp: ^1.0.3
     npm-run-all: ^4.1.5
+    os-browserify: ^0.3.0
     prettier: ^2.8.7
     react-draggable: ^4.4.6
     rimraf: ^4.4.1
+    sora-js-sdk: ^2023.2.0
     source-map-loader: ^1.0.2
     style-loader: ^3.3.1
     stylelint: ^14.9.1
@@ -8756,6 +8758,13 @@ __metadata:
     prelude-ls: ^1.2.1
     type-check: ^0.4.0
   checksum: 09281999441f2fe9c33a5eeab76700795365a061563d66b098923eb719251a42bdbe432790d35064d0816ead9296dbeb1ad51a733edf4167c96bd5d0882e428a
+  languageName: node
+  linkType: hard
+
+"os-browserify@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "os-browserify@npm:0.3.0"
+  checksum: 16e37ba3c0e6a4c63443c7b55799ce4066d59104143cb637ecb9fce586d5da319cdca786ba1c867abbe3890d2cbf37953f2d51eea85e20dd6c4570d6c54bfebf
   languageName: node
   linkType: hard
 
@@ -9884,6 +9893,13 @@ __metadata:
     ip: ^2.0.0
     smart-buffer: ^4.2.0
   checksum: 259d9e3e8e1c9809a7f5c32238c3d4d2a36b39b83851d0f573bfde5f21c4b1288417ce1af06af1452569cd1eb0841169afd4998f0e04ba04656f6b7f0e46d748
+  languageName: node
+  linkType: hard
+
+"sora-js-sdk@npm:^2023.2.0":
+  version: 2023.2.0
+  resolution: "sora-js-sdk@npm:2023.2.0"
+  checksum: 69303ff54984d0443cc840d1f011d41e32deceba806180465db6b7c0df8ddf36cc5948798a6ec35f365ab5d72e2b218afca48c4f271080a0f471c9964509d1af
   languageName: node
   linkType: hard
 

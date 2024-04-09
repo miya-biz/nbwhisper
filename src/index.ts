@@ -16,39 +16,7 @@ import { SfuClientManager, SfuClientEvent } from './sfuClientManager';
 import { generateUuid } from './uuid';
 import { DummyCanvasWidget } from './dummyCanvasWidget';
 import { RequestTalkingWidget } from './requestTalkingWidget';
-
-let Sora : any;
-// 本来は
-// yarn add sora-js-sdk@2022.1.0
-// で入れるべきだが、ビルド時以下のエラーになるのでCDNから使用する。
-// Cannot find module '@sora/e2ee' or its corresponding type declarations.
-//
-// 2 import SoraE2EE from "@sora/e2ee";
-//                        ~~~~~~~~~~~~
-//
-//
-// Found 1 error in node_modules/sora-js-sdk/dist/base.d.ts:2
-function loadScript(src: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = src;
-        script.onload = () => resolve();
-        script.onerror = reject;
-        document.head.appendChild(script);
-    });
-}
-async function initializeSoraSDK(): Promise<boolean> {
-    try {
-        await loadScript('https://cdn.jsdelivr.net/npm/sora-js-sdk@2022.1.0/dist/sora.min.js');
-        Sora = (window as any).Sora;
-        console.log('Sora JavaScript SDKが正常にロードされました');
-        console.log(Sora);
-        return true;
-    } catch (error) {
-        console.error('Sora JavaScript SDKのロード中にエラーが発生しました', error);
-        return false;
-    }
-}
+import Sora from 'sora-js-sdk';
 
 async function getAudioStream(dummyCanvasWidget : DummyCanvasWidget) {
     const constraints = {
@@ -179,11 +147,6 @@ async function activate(app : JupyterFrontEnd) {
     let signalingUrls = data.signaling_url ?? "";
     let channelIdPrefix = data.channel_id_prefix ?? "";
     let channelIdSuffix = data.channel_id_suffix ?? ""; // Sora cloudでは "@プロジェクト名"
-
-    if(!await initializeSoraSDK()) {
-        alert("SDKが初期化できませんでした")
-        return;
-    }
 
     // 自身のクライアント情報
     let ownClient : Client = new Client();
