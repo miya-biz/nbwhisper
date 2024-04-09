@@ -60,6 +60,7 @@ export class WaitingUserListWidget extends ReactWidget {
     private _ownUser : User;
     private _ownClient : Client;
 
+    public onSetVisibleList = new Signal<WaitingUserListWidget, boolean>(this);
     public onRequestTalking = new Signal<WaitingUserListWidget, User[]>(this);
 
     constructor(users : User[], ownUser : User, ownClient : Client) {
@@ -70,6 +71,7 @@ export class WaitingUserListWidget extends ReactWidget {
     }
 
     setListVisible(value : boolean) {
+        this.onSetVisibleList.emit(value);
         this._isListVisible = value;
         this.update();
     }

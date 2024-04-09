@@ -413,12 +413,23 @@ async function activate(app : JupyterFrontEnd) {
                 return;
             }
 
+            if(leftClientIds.includes(clientData.waiting_client_id)) {
+                // 離脱済みのクライアント情報が遅れて届いた
+                // この場合は無視する
+                console.log("waiting client id: " + clientData.waiting_client_id + " is left.");
+                leftClientIds = leftClientIds.filter(x => x != clientData.waiting_client_id);
+                return;
+            }
+
             if(clientData.user_name == ownUser.name) {
                 // 自分の情報の更新
                 console.log("waiting client id: " + clientData.waiting_client_id + " is mine. update own user.");
                 if(!Enumerable.from(ownUser.clients).where(c => c.waiting_client_id == clientData.waiting_client_id).any()) {
                     // 自身のクライアントを追加
                     ownUser.clients.push(clientData);
+                } else {
+                    // 既存クライアントなのでスルー
+                    return;
                 }
             } else {
                 // 他ユーザーの情報更新
@@ -428,6 +439,9 @@ async function activate(app : JupyterFrontEnd) {
                     if(!Enumerable.from(targetUser.clients).where(c => c.waiting_client_id == clientData.waiting_client_id).any()) {
                         // ユーザーのクライアント追加
                         targetUser.clients.push(clientData);
+                    } else {
+                        // 既存クライアントなのでスルー
+                        return;
                     }
                 } else {
                     // 新ユーザーの追加
@@ -787,6 +801,14 @@ async function activate(app : JupyterFrontEnd) {
         }
         // ウィジェット更新
         updateWidgets();
+    });
+
+    // 待機ユーザーリストでリストの表示状態を切り替えた
+    waitingUserListWidget.onSetVisibleList.connect(async (_, isVisible) => {
+        if(isVisible) {
+            // 初回のContact送信がうまくいかないことがあるので、再度送る
+            await sendPushContact(ownClient, true);
+        }
     });
 
     // 待機ユーザーリストで「通話をリクエスト」ボタンをクリックした
