@@ -1,4 +1,5 @@
 import { requestAPI } from './handler';
+import Sora from 'sora-js-sdk';
 
 // イベントの種類
 export class SfuClientEvent {
@@ -33,8 +34,7 @@ export class SfuClientManager {
         signalingUrl : string,
         channelIdPrefix : string,
         channelIdSuffix : string,
-        apiKey : string,
-        Sora : any  // TODO importができるまで仮
+        apiKey : string
     ) {
         let signalingUrls = signalingUrl != null ? signalingUrl.split(',') : [];
         this.sora = Sora.connection(signalingUrls, this.debug);

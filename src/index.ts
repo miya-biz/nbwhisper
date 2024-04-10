@@ -16,7 +16,6 @@ import { SfuClientManager, SfuClientEvent } from './sfuClientManager';
 import { generateUuid } from './uuid';
 import { DummyCanvasWidget } from './dummyCanvasWidget';
 import { RequestTalkingWidget } from './requestTalkingWidget';
-import Sora from 'sora-js-sdk';
 
 async function getAudioStream(dummyCanvasWidget : DummyCanvasWidget) {
     const constraints = {
@@ -270,8 +269,7 @@ async function activate(app : JupyterFrontEnd) {
         signalingUrls,
         channelIdPrefix,
         channelIdSuffix,
-        apiKey,
-        Sora
+        apiKey
     );
 
     // コンタクトを送信
