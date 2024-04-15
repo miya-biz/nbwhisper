@@ -7,7 +7,7 @@ import Enumerable from 'linq';
 
 // ミニ通話画面ウィジェット
 export class MiniTalkingViewWidget extends ReactWidget {
-    private _isDisplayAreaVisible = false;
+    private _isDisplayAreaVisible = true;
     private _isVisibleDisplayButtons = false;
 
     public onMaximizeTalkingView = new Signal<MiniTalkingViewWidget, any>(this);
