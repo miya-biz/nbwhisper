@@ -480,8 +480,10 @@ async function activate(app : JupyterFrontEnd) {
             let invitePushData = data as InvitePushData;
             if(invitePushData.target.includes(ownUser.name)) {
                 // 自身が招待を受けた
+                console.log("invited talking room: " + invitePushData.room_name);
                 if(invitation.is_active) {
                     // もし招待済みだった場合はこれを拒絶する
+                    console.log("You have joined talking room. Refuse this invitation.")
                     await sendPushRefuseInvite(invitation.from_user_name, ownUser.name, invitation.room_name);
                 }
                 // 招待情報を更新
@@ -496,11 +498,24 @@ async function activate(app : JupyterFrontEnd) {
                 await sendPushClient(ownClient);
                 // ウィジェット更新
                 updateWidgets(); 
+            } else {
+                if(invitePushData.room_name == ownClient.talking_room_name) {
+                    // 自身が参加中のルームへの招待だった
+                    console.log("Other users are invited to my room: " + invitePushData.room_name);
+                    allUsers.forEach(user => {
+                        if(invitePushData.target.includes(user.name)) {
+                            // このユーザーを招待対象にセット
+                            user.is_invited = true;
+                        }
+                    });
+                    // ウィジェット更新
+                    updateWidgets(); 
+                }
             }
         } else if(pushData.kind == PushKind.RefuseInvite) {
             // 招待の拒絶
             let refuseInvitePushData = data as RefuseInvitePushData;
-            if(refuseInvitePushData.room_name == ownClient.talking_room_name && refuseInvitePushData.target == ownUser.name) {
+            if(refuseInvitePushData.room_name == ownClient.talking_room_name) {
                 // 該当のユーザーの招待フラグをOFFにする
                 let targetUser = Enumerable.from(allUsers).where(u => u.name == refuseInvitePushData.user_name).firstOrDefault();
                 if(targetUser) {
@@ -520,6 +535,7 @@ async function activate(app : JupyterFrontEnd) {
             let cancelInvitePushData = data as CancelInvitePushData;
             if(invitation.is_active && cancelInvitePushData.room_name == invitation.room_name) {
                 if(cancelInvitePushData.target == "" || cancelInvitePushData.target == ownUser.name) {
+                    console.log("invitation for me is cancelled.");
                     // 全ユーザー対象、もしくは自身を対象とした招待のキャンセル
                     invitation.is_active = false;
                     // -> 待機中
@@ -528,6 +544,17 @@ async function activate(app : JupyterFrontEnd) {
                     // ウィジェット更新
                     updateWidgets(); 
                 }
+            } else if(cancelInvitePushData.room_name == ownClient.talking_room_name) {
+                // 自身の参加するルームからの招待のキャンセル
+                console.log("invitation of my room is cancelled.");
+                allUsers.forEach(user => {
+                    if(user.name == cancelInvitePushData.target) {
+                        // ユーザーの招待を取り消す
+                        user.is_invited = false;
+                    }
+                });
+                // ウィジェット更新
+                updateWidgets(); 
             }
         } else if(pushData.kind == PushKind.ShareDisplay) {
             // 画面の共有切り替え
