@@ -161,6 +161,12 @@ WebRTC SFUで使用するチャンネル名の末尾に付与する文字列を�
 - 同じチャンネルに接続するユーザー間で一致させる必要があります。
 - WebRTCサーバーとして[Sora Cloud](https://sora-cloud.shiguredo.jp/)を使用する場合は、`@プロジェクト名`にする必要があります。
 
+`share_current_tab_only`<br>
+画像共有時にカレントタブのみ共有するかどうかを設定します。
+- Trueにすると、画面共有時にどの画面を共有するかの選択はできず、カレントのタブを共有します。
+- Falseにすると、画面共有時にどの画面を共有するかの選択ダイアログを表示します。
+- これらはブラウザの種類やバージョンによって動作が異なる、あるいは設定しても動作が変わらない場合があります。
+
 `default_username`<br>
 環境変数で設定していない場合に使われるユーザー名を入力します。
 - ユーザー名は環境変数`JUPYTERHUB_USER`で設定したものが優先して使われます。
@@ -172,6 +178,7 @@ c.NBWhisper.signaling_url ='wss://0001.sora.sora-cloud.shiguredo.app/signaling,w
 c.NBWhisper.api_key = 'apikey'
 c.NBWhisper.channel_id_prefix = 'prefix-'
 c.NBWhisper.channel_id_suffix = '@project_name'
+c.NBWhisper.share_current_tab_only = True
 ```
 
 ### 通話

@@ -20,7 +20,8 @@ class ConfigHandler(APIHandler):
             "api_key": self._config.api_key,
             "signaling_url": self._config.signaling_url,
             "channel_id_prefix": self._config.channel_id_prefix,
-            "channel_id_suffix": self._config.channel_id_suffix
+            "channel_id_suffix": self._config.channel_id_suffix,
+            "share_current_tab_only": self._config.share_current_tab_only
         }))
 
 class RouteHandler(APIHandler):

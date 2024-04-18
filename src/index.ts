@@ -40,11 +40,11 @@ async function getAudioStream(dummyCanvasWidget : DummyCanvasWidget) {
     }
 }
 
-async function getDisplayTrack() {
+async function getDisplayTrack(preferCurrentTab : boolean = false) {
     let option = {
         video : true,
         selfBrowserSurface: 'include',
-        // preferCurrentTab: true   // trueにすると、Chromeでこのタブ「しか」選べなくなるのでコメントアウト
+        preferCurrentTab: preferCurrentTab   // trueにすると、Chromeでこのタブ「しか」選べなくなる
     };
     try {
         // ディスプレイ
@@ -146,6 +146,7 @@ async function activate(app : JupyterFrontEnd) {
     let signalingUrls = data.signaling_url ?? "";
     let channelIdPrefix = data.channel_id_prefix ?? "";
     let channelIdSuffix = data.channel_id_suffix ?? ""; // Sora cloudでは "@プロジェクト名"
+    let share_current_tab_only = data.share_current_tab_only ?? false;
 
     // 自身のクライアント情報
     let ownClient : Client = new Client();
@@ -911,7 +912,7 @@ async function activate(app : JupyterFrontEnd) {
     // 画面共有を開始する
     const startSharingDisplay = async () => {
         // ディスプレイトラックを取得
-        let displayTrack = await getDisplayTrack();
+        let displayTrack = await getDisplayTrack(share_current_tab_only);
         // 画面共有をブラウザ上でキャンセルした場合もここで返す
         if(!displayTrack) return false;
         // トラックを差し替える

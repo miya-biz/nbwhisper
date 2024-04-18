@@ -1,4 +1,4 @@
-from traitlets import Unicode
+from traitlets import Unicode, Bool
 from traitlets.config.configurable import Configurable
 
 class NBWhisper(Configurable):
@@ -26,3 +26,9 @@ class NBWhisper(Configurable):
         'jovyan', 
         help='Default Username'
     ).tag(config=True)
+
+    share_current_tab_only = Bool(
+        True,
+        help='share_current_tab_only',
+    ).tag(config=True)
+    
