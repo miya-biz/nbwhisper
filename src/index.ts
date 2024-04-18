@@ -16,6 +16,7 @@ import { SfuClientManager, SfuClientEvent } from './sfuClientManager';
 import { generateUuid } from './uuid';
 import { DummyCanvasWidget } from './dummyCanvasWidget';
 import { RequestTalkingWidget } from './requestTalkingWidget';
+import { Platform, PlatformType, getPlatform } from './platform';
 
 async function getAudioStream(dummyCanvasWidget : DummyCanvasWidget) {
     const constraints = {
@@ -136,8 +137,12 @@ interface MutePushData extends PushData {
     is_mute : boolean;
 }
 
-async function activate(app : JupyterFrontEnd) {
-    console.log('JupyterLab extension nbwhisper is activated!');
+async function initialize(platform : Platform) {
+    if(platform.type == PlatformType.JUPYTER_NOTEBOOK7_TREE) {
+        // ツリーの場合は無効
+        console.log("This is jupyter notebook tree. NBWhisper is disabled.");
+        return;
+    }
 
     // jupyter_notebook_config.pyから設定の読み込み
     let data = await requestAPI<any>('config');
@@ -173,7 +178,7 @@ async function activate(app : JupyterFrontEnd) {
     let leftClientIds : string[] = [];
 
     // 待機ユーザーリストウィジェット
-    const waitingUserListWidget = new WaitingUserListWidget(allUsers, ownUser, ownClient);
+    const waitingUserListWidget = new WaitingUserListWidget(allUsers, ownUser, ownClient, platform.type != PlatformType.JUPYTER_LAB);
     Widget.attach(waitingUserListWidget, document.body);
 
     // ミニ通話画面ウィジェット
@@ -1083,6 +1088,15 @@ async function activate(app : JupyterFrontEnd) {
 
     // 自身のユーザー情報を初回プッシュ
     await sendPushContact(ownClient, true);
+}
+
+function activate(app : JupyterFrontEnd) {
+    console.log('JupyterLab extension nbwhisper is activated!');
+
+    app.restored.then(async () => {
+        let platform = await getPlatform(app);
+        await initialize(platform);
+    });
 }
 
 /**

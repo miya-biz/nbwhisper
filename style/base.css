@@ -18,6 +18,11 @@
     z-index: 10000;
 }
 
+.nbwhisper-waiting-user-list-widget.notebook7 {
+    left: initial;
+    right: 0px;
+}
+
 .nbwhisper-waiting-user-list-hidden-text {
     position: fixed;
     left: 40px;
@@ -28,6 +33,11 @@
     background-color: rgba(110, 110, 110, 0.4);
     color: #4169e1;
     z-index: 10000;
+}
+
+.nbwhisper-waiting-user-list-hidden-text.notebook7 {
+    left: initial;
+    right: 40px;
 }
 
 .nbwhisper-waiting-user-list-button {
@@ -41,6 +51,11 @@
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+}
+
+.nbwhisper-waiting-user-list-button.notebook7 {
+    left: initial;
+    right: 40px;
 }
 
 .nbwhisper-waiting-user-list-button-open {
@@ -79,6 +94,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     display: grid;
     grid-template-rows: 1fr auto;
+}
+
+.nbwhisper-waiting-user-list-dialog.notebook7 {
+    left: initial;
+    right: 40px;
 }
 
 .nbwhisper-waiting-user-list-container {
