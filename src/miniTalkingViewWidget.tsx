@@ -18,12 +18,14 @@ export class MiniTalkingViewWidget extends ReactWidget {
     private _users : User[];
     private _ownUser : User;
     private _remoteStreams : MediaStream[] = [];
+    private _isNotebook7 : boolean;
 
-    constructor(users : User[], ownUser : User, remoteStremas : MediaStream[]) {
+    constructor(users : User[], ownUser : User, remoteStremas : MediaStream[], isNotebook7 : boolean) {
         super();
         this._users = users;
         this._ownUser = ownUser;
         this._remoteStreams = remoteStremas;
+        this._isNotebook7 = isNotebook7;
     }
 
     private _maximizeTakingView() {
@@ -60,7 +62,7 @@ export class MiniTalkingViewWidget extends ReactWidget {
     render(): JSX.Element {
         return (
             <div>
-                <div className='nbwhisper-mini-talking-view-button-palette'>
+                <div className={`nbwhisper-mini-talking-view-button-palette ${this._isNotebook7 && 'notebook7'}`}>
                     <div className='nbwhisper-mini-talking-view-buttons'>
                         {
                             this._ownUser.is_mute ?
@@ -83,7 +85,9 @@ export class MiniTalkingViewWidget extends ReactWidget {
                     </div>
                 </div>
                 <div className={`nbwhisper-mini-talking-view-display-palette ${
-                    Enumerable.from(this._users).where(u => u.is_joined && u.is_sharing_display).any() ? 'shown' : 'hidden'
+                    Enumerable.from(this._users).where(u => u.is_joined && u.is_sharing_display).any() ? 
+                        (this._isNotebook7 ? 'shown notebook7' : 'shown')
+                        : 'hidden'
                 }`}>
                     {
                         !this._isDisplayAreaVisible &&

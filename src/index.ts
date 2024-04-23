@@ -182,7 +182,7 @@ async function initialize(platform : Platform) {
     Widget.attach(waitingUserListWidget, document.body);
 
     // ミニ通話画面ウィジェット
-    const miniTalkingViewWidget = new MiniTalkingViewWidget(allUsers, ownUser, remoteStreams);
+    const miniTalkingViewWidget = new MiniTalkingViewWidget(allUsers, ownUser, remoteStreams, platform.type != PlatformType.JUPYTER_LAB);
     Widget.attach(miniTalkingViewWidget, document.body);
     miniTalkingViewWidget.hide();
 

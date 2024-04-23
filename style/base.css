@@ -742,6 +742,12 @@
     display: flex;
 }
 
+.nbwhisper-mini-talking-view-button-palette.notebook7 {
+    left: initial;
+    transform: initial;
+    right: 32px;
+}
+
 .nbwhisper-mini-talking-view-buttons {
     width: 100%;
     height: 100%;
@@ -804,10 +810,14 @@
     z-index: 10000;
 }
 
+.nbwhisper-mini-talking-view-display-palette.notebook7 {
+    right: 32px;
+}
+
 .nbwhisper-mini-talking-view-display-palette.hidden {
     position: fixed;
-    bottom: 0px;
-    left: 0px;
+    top: 100vh;
+    left: 100vw;
     z-index: 10000;
 }
 
