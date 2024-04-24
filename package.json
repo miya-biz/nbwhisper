@@ -1,21 +1,18 @@
 {
   "name": "nbwhisper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A JupyterLab extension.",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/miya-biz/Jupyter-LC_nbwhisper",
+  "homepage": "https://github.com/NII-cloud-operation/nbwhisper",
   "bugs": {
-    "url": "https://github.com/miya-biz/Jupyter-LC_nbwhisper/issues"
+    "url": "https://github.com/NII-cloud-operation/nbwhisper/issues"
   },
   "license": "BSD-3-Clause",
-  "author": {
-    "name": "miyamoto",
-    "email": "me@test.com"
-  },
+  "author": "National Institute of Informatics.",
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
     "style/**/*.{css,js,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
@@ -25,7 +22,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/miya-biz/Jupyter-LC_nbwhisper.git"
+    "url": "https://github.com/NII-cloud-operation/nbwhisper.git"
   },
   "workspaces": [
     "ui-tests"
