@@ -53,9 +53,7 @@ jobs:
         python -m pip install .
 
         jupyter server extension list
-        #jupyter server extension list 2>&1 | grep -ie "nbwhisper.*OK"
-
-        jupyter labextension list 2>&1 | grep -ie "nbwhisper.*OK"
+        jupyter labextension list
         python -m jupyterlab.browser_check
 
         pip install build
