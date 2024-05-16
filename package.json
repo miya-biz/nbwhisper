@@ -22,7 +22,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NII-cloud-operation/nbwhisper.git"
+    "url": "https://github.com/miya-biz/nbwhisper.git"
   },
   "workspaces": [
     "ui-tests"
