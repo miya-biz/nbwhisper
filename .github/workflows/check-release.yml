@@ -66,7 +66,6 @@ jobs:
           hatch --version
 
       - name: Check Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          jupyter-releaser check-release --token ${{ secrets.GITHUB_TOKEN }}
+        uses: jupyter-server/jupyter_releaser/.github/actions/check-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
