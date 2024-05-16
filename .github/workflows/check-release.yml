@@ -49,10 +49,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install .
-      - name: Install Hatch
-        run: |
-          pip install hatch
       - name: Check Release
-        uses: jupyter-server/jupyter_releaser/.github/actions/check-release@v1
+        uses: jupyter-server/jupyter_releaser/.github/actions/check-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
