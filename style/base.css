@@ -1,0 +1,899 @@
+/*
+    See the JupyterLab Developer Guide for useful CSS Patterns:
+
+    https://jupyterlab.readthedocs.io/en/stable/developer/css.html
+*/
+
+.nbwhisper-dummy-canvas {
+    position: fixed;
+    top: 100vh;
+    width: 4px;
+    height: 4px;
+}
+
+.nbwhisper-waiting-user-list-widget {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    z-index: 10000;
+}
+
+.nbwhisper-waiting-user-list-widget.notebook7 {
+    left: initial;
+    right: 0px;
+}
+
+.nbwhisper-waiting-user-list-hidden-text {
+    position: fixed;
+    left: 40px;
+    bottom: 32px;
+    display: table;
+    padding: 4px;
+    font-size: 16px;
+    background-color: rgba(110, 110, 110, 0.4);
+    color: #4169e1;
+    z-index: 10000;
+}
+
+.nbwhisper-waiting-user-list-hidden-text.notebook7 {
+    left: initial;
+    right: 40px;
+}
+
+.nbwhisper-waiting-user-list-button {
+    position: absolute;
+    bottom: 32px;
+    left: 40px;
+    width: 56px;
+    height: 56px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.nbwhisper-waiting-user-list-button.notebook7 {
+    left: initial;
+    right: 40px;
+}
+
+.nbwhisper-waiting-user-list-button-open {
+    background-color: #005BD5;
+    background-image: url(./resources/hamburger.svg);
+    background-size: 34px 20px;
+}
+
+.nbwhisper-waiting-user-list-button-open:hover {
+    background-color: #003780;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    transition: background-color .5s, box-shadow .5s;
+}
+
+.nbwhisper-waiting-user-list-button-close {
+    background-color: #ffffff;
+    background-image: url(./resources/close.svg);
+    background-size: 20px 20px;
+}
+
+.nbwhisper-waiting-user-list-button-close:hover {
+    background-color: #d0d0d0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    transition: background-color .5s, box-shadow .5s;
+}
+
+.nbwhisper-waiting-user-list-dialog {
+    position: absolute;
+    left: 40px;
+    bottom: 96px;
+    width: 280px;
+    height: 420px;	
+    background-color: #ffffff;
+    border-radius: 4px;
+    border: 1px solid #BABABA;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
+.nbwhisper-waiting-user-list-dialog.notebook7 {
+    left: initial;
+    right: 40px;
+}
+
+.nbwhisper-waiting-user-list-container {
+    margin-top: 24px;
+    margin-left: 24px;
+    margin-right: 4px;
+    padding: 0;
+}
+
+.nbwhisper-user-list-container {
+    display: block;
+    overflow: auto;
+}
+
+.nbwhisper-user-list-container > ul {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+    list-style-type: none;
+}
+
+.nbwhisper-user-list-container > li {
+    display: list-item;
+    text-align: match-parent;
+}
+
+.nbwhisper-user-list-item {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 8px;
+    cursor: pointer;
+    color: #000000;
+}
+
+.nbwhisper-user-list-item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.nbwhisper-user-list-item.disabled {
+    cursor: default;
+}
+
+.nbwhisper-user-list-item.disabled:hover {
+    background-color: transparent;
+}
+
+.nbwhisper-user-list-item-label {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nbwhisper-list-item-disabled {
+    color: #bababa;
+    pointer-events: none;
+}
+
+.nbwhisper-list-item-disabled:hover {
+    background-color: transparent;
+}
+
+.nbwhisper-user-list-item-icons {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+}
+
+.nbwhisper-user-list-item-icons > div {
+    width: 24px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.nbwhisper-check-off-icon {
+    background-image: url(./resources/check_off.svg);
+    background-size: 10px 6px;
+}
+
+.nbwhisper-on-talking-icon {
+    background-image: url(./resources/on_talking.svg);
+    background-size: 18px 16px;
+}
+
+.nbwhisper-check-on-icon {
+    background-image: url(./resources/check_on.svg);
+    background-size: 10px 6px;
+}
+
+.nbwhisper-mute-icon {
+    background-image: url(./resources/mic_off_list.svg);
+    background-size: 14px 14px;
+}
+
+.nbwhisper-share-display-icon {
+    background-image: url(./resources/share_display_list.svg);
+    background-size: 16px 16px;
+}
+
+.nbwhisper-request-talking-button {
+    margin: 24px 24px 16px 24px;
+}
+
+.nbwhisper-button {
+	border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	cursor: pointer;
+    height: 38px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.nbwhisper-button-normal {
+    background-color: #005bd5;
+}
+
+.nbwhisper-button-normal:hover {
+	background-color: #003780;
+	transition: background-color .5s;
+}
+
+.nbwhisper-button-normal > span {
+    color: #ffffff;
+}
+
+.nbwhisper-button-cancel {
+    background-color: #ffffff;
+    border: 2px solid #bababa;
+    border-radius: 8px;
+}
+
+.nbwhisper-button-cancel:hover {
+	background-color: #d0d0d0;
+	transition: background-color .5s;
+}
+
+.nbwhisper-button-cancel > span {
+    color: #5d5d5d;
+}
+
+.nbwhisper-button-disabled {
+    background-color: #BABABA;
+}
+
+.nbwhisper-button-disabled > span {
+    color: #5d5d5d;
+}
+
+.nbwhisper-button-not-join {
+    background-color: #ff2747;
+    border-radius: 4px;
+}
+
+.nbwhisper-button-not-join:hover {
+    background-color: #bc0001;
+    transition: background-color .5s;
+}
+
+.nbwhisper-button-not-join-icon {
+    width: 21px;
+    height: 21px;
+    background-image: url(./resources/hang_up.svg);
+    background-size: 21px 21px;
+    background-repeat: no-repeat;
+    margin-left: -8px;
+    display: inline-block;
+}
+
+.nbwhisper-button-not-join-text {
+    color: #ffffff;
+    margin-left: 8px;
+}
+
+.nbwhisper-button-join {
+    background-color: #005bd5;
+    border-radius: 4px;
+}
+
+.nbwhisper-button-join:hover {
+    background-color: #003780;
+    transition: background-color .5s;
+}
+
+.nbwhisper-button-join-icon {
+    width: 21px;
+    height: 21px;
+    background-image: url(./resources/hang_on.svg);
+    background-size: 21px 21px;
+    background-repeat: no-repeat;
+    margin-left: -8px;
+    display: inline-block;
+}
+
+.nbwhisper-button-join-text {
+    color: #ffffff;
+    margin-left: 8px;
+}
+
+.nbwhisper-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 11000;
+
+    /*　画面の中央に要素を表示させる設定　*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nbwhisper-frontmost {
+    z-index: 20000;
+}
+
+.nbwhisper-dialog-base {
+    width: 568px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding-left: 56px;
+    padding-right: 56px;
+    padding-top: 40px;
+    padding-bottom: 32px;
+}
+
+.nbwhisper-dialog-body {
+    font-size: 16px;
+    color: #000000;
+}
+
+.nbwhisper-dialog-subbody {
+    font-size: 16px;
+    color: #5d5d5d;
+    margin-top: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    white-space: pre-wrap;
+}
+
+.nbwhisper-dialog-buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 24px;
+}
+
+.nbwhisper-dialog-buttons > div {
+    margin-right: 24px;
+    width: 164px;
+}
+
+.nbwhisper-talking-view {
+    position: fixed;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 1);
+	z-index: 12000;
+    display: flex;
+    flex-direction: column;
+    transform-origin: right bottom;
+    transition: transform 0.4s ease-in-out;
+    transform: scale(0);
+}
+
+.nbwhisper-talking-view.active {
+    transform: scale(1);
+}
+
+.nbwhisper-talking-view.leave {
+    transform: scale(0);
+}
+
+.nbwhisper-talking-view-main {
+    flex: 1;
+    margin: 24px 32px 16px 32px;
+    display: flex;
+    max-height: calc(100vh - 120px);
+}
+
+.nbwhisper-talking-view-display-area {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.nbwhisper-talking-view-display-video {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.nbwhisper-talking-view-hidden-video {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    transform: translate(0, 100%);
+}
+
+.nbwhisper-talking-view-info-text {
+    color: #BABABA;
+    font-size: 18px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.nbwhisper-talking-view-calling-members {
+    color: #BABABA;
+    font-size: 18px;
+    margin-top: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    white-space: pre-wrap;
+    text-align: center;
+}
+
+.nbwhisper-talking-view-display-name {
+    position: absolute;
+    left: 38px;
+    bottom: 104px;
+    height: 30px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: #333333;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.nbwhisper-talking-view-user-list-area {
+    width: 240px;
+    margin-left: 8px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    transform-origin: right;
+    transition: width 0.4s ease-in-out, margin-left 0.4s ease-in-out;
+    overflow: hidden;
+}
+
+.nbwhisper-talking-view-user-list-area.active {
+    width: 240px;
+    margin-left: 8px;
+}
+
+.nbwhisper-talking-view-user-list-area.leave {
+    width: 0px;
+    margin-left: 0px;
+}
+
+.nbwhisper-talking-view-footer {
+    height: 56px;
+    margin: 0px 32px 24px 32px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+}
+
+.nbwhisper-talking-view-left-buttons {
+    grid-column: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    column-gap: 24px;
+}
+
+.nbwhisper-talking-view-center-buttons {
+    grid-column: 2;
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 24px;
+}
+
+.nbwhisper-talking-view-right-buttons {
+    grid-column: 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    column-gap: 24px;
+}
+
+.nbwhisper-talking-view-button {
+    width: 56px;
+    height: 56px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.nbwhisper-talking-view-button.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.nbwhisper-talking-view-mute-on-button {
+    background-color: #333333;
+    background-image: url(./resources/mic_on.svg);
+    background-size: 16px 20px;
+}
+
+.nbwhisper-talking-view-mute-on-button:hover {
+	background-color: #222222;
+	transition: background-color .5s;
+}
+
+.nbwhisper-talking-view-mute-off-button {
+    background-color: #ff2747;
+    background-image: url(./resources/mic_off.svg);
+    background-size: 20px 20px;
+}
+
+.nbwhisper-talking-view-mute-off-button:hover {
+    background-color: #bc0001;
+    transition: background-color .5s;
+}
+
+.nbwhisper-talking-view-share-display-on-button {
+    background-color: #333333;
+    background-image: url(./resources/share_display.svg);
+    background-size: 22px 22px;
+}
+
+.nbwhisper-talking-view-share-display-on-button:hover {
+    background-color: #222222;
+    transition: background-color .5s;
+}
+
+.nbwhisper-talking-view-share-display-off-button {
+    background-color: #005BD5;
+    background-image: url(./resources/share_display.svg);
+    background-size: 22px 22px;
+}
+
+.nbwhisper-talking-view-share-display-off-button:hover {
+    background-color: #003780;
+    transition: background-color .5s;
+}
+
+.nbwhisper-talking-view-hung-up-button {
+    background-color: #ff2747;
+    background-image: url(./resources/hang_up.svg);
+    background-size: 21px 21px;
+}
+
+.nbwhisper-talking-view-hung-up-button:hover {
+    background-color: #bc0001;
+    transition: background-color .5s;
+}
+
+.nbwhisper-talking-view-close-button {
+    background-color: #333333;
+    background-image: url(./resources/close_talk.svg);
+    background-size: 20px 16px;
+}
+
+.nbwhisper-talking-view-close-button:hover {
+    background-color: #222222;
+    transition: background-color .5s;
+}
+
+.nbwhisper-talking-view-show-members-button {
+    background-color: #333333;
+    background-image: url(./resources/members.svg);
+    background-size: 22px 22px;
+}
+
+.nbwhisper-talking-view-show-members-button:hover {
+    background-color: #222222;
+    transition: background-color .5s;
+}
+
+.nbwhisper-talking-view-hide-members-button {
+    background-color: #005BD5;
+    background-image: url(./resources/members.svg);
+    background-size: 22px 22px;
+}
+
+.nbwhisper-talking-view-hide-members-button:hover {
+    background-color: #003780;
+    transition: background-color .5s;
+}
+
+.nbwhisper-talking-view-user-list-header {
+    grid-row: 1;
+    height: 48px;
+    margin-left: 16px;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.nbwhisper-talking-view-user-list-header-caption {
+    flex: 1;
+    font-size: 16px;
+    color: #5D5D5D;
+    font-weight: bold;
+}
+
+.nbwhisper-talking-view-user-list-header-back-button {
+    width: 24px;
+    height: 24px;
+    background-image: url(./resources/back.svg);
+    background-size: 17px 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.nbwhisper-talking-view-user-list-header-back-button:hover {
+    opacity: .4;
+    transition: opacity .5s;
+}
+
+.nbwhisper-talking-view-user-list-header-close-button {
+    width: 24px;
+    height: 24px;
+    background-image: url(./resources/close.svg);
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.nbwhisper-talking-view-user-list-header-close-button:hover {
+    opacity: .4;
+    transition: opacity .5s;
+}
+
+.nbwhisper-talking-view-user-list-container {
+    grid-row: 2;
+    margin-left: 16px;
+    margin-right: 4px;
+    padding: 0;
+}
+
+.nbwhisper-talking-view-user-list-footer {
+    grid-row: 3;
+    margin: 8px 16px 12px 16px;
+}
+
+.nbwhisper-talking-view-user-list-separator {
+    border-bottom: 2px solid #CCDEF7;
+    margin: 14px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nbwhisper-talking-view-user-list-inner-caption {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 8px;
+    color: #5D5D5D;
+    list-style: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.nbwhisper-talking-view-user-list-buttons {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    align-items: center;
+}
+
+.nbwhisper-talking-view-user-list-cancel-button {
+	border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	cursor: pointer;
+    width: 64px;
+    height: 24px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ff2747;
+    color: #ffffff;
+}
+
+.nbwhisper-talking-view-user-list-cancel-button:hover {
+    background-color: #bc0001;
+    transition: background-color .5s;
+}
+
+.nbwhisper-talking-view-user-list-add-member-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.nbwhisper-talking-view-user-list-add-member-button-icon {
+    width: 20px;
+    height: 20px;
+    background-image: url(./resources/plus.svg);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.nbwhisper-mini-talking-view-button-palette {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    border: 1px solid #BABABA;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    display: flex;
+}
+
+.nbwhisper-mini-talking-view-button-palette.notebook7 {
+    left: initial;
+    transform: initial;
+    right: 32px;
+}
+
+.nbwhisper-mini-talking-view-buttons {
+    width: 100%;
+    height: 100%;
+    margin: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 8px;
+    z-index: 10000;
+}
+
+.nbwhisper-mini-talking-view-button {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.nbwhisper-mini-talking-view-button:hover {
+    opacity: .4;
+    transition: opacity .5s;
+}
+
+.nbwhisper-mini-talking-view-button.empty {
+    pointer-events: none;
+}
+
+.nbwhisper-mini-talking-view-mute-on-button {
+    background-image: url(./resources/mic_on_palette.svg);
+    background-size: 22px 22px;
+}
+
+.nbwhisper-mini-talking-view-mute-off-button {
+    background-image: url(./resources/mic_off_palette.svg);
+    background-size: 22px 22px;
+}
+
+.nbwhisper-mini-talking-view-display-off-button {
+    background-image: url(./resources/share_display_palette.svg);
+    background-size: 22px 22px;
+}
+
+.nbwhisper-mini-talking-view-hung-up-button {
+    background-image: url(./resources/hang_up_palette.svg);
+    background-size: 21px 21px;
+}
+
+.nbwhisper-mini-talking-view-maximize-button {
+    background-image: url(./resources/maximize.svg);
+    background-size: 21px 21px;
+}
+
+.nbwhisper-mini-talking-view-display-palette.shown {
+    position: fixed;
+    top: 92px;
+    right: 64px;
+    height: 144px;
+    z-index: 10000;
+}
+
+.nbwhisper-mini-talking-view-display-palette.notebook7 {
+    right: 32px;
+}
+
+.nbwhisper-mini-talking-view-display-palette.hidden {
+    position: fixed;
+    top: 100vh;
+    left: 100vw;
+    z-index: 10000;
+}
+
+.nbwhisper-mini-talking-view-display-palette-opener {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 32px;
+    height: 100%;
+    background-color: #333333;
+    background-image: url(./resources/stretch_screen.svg);
+    background-size: 20px 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 4px 0px 0px 4px;
+    cursor: pointer;
+}
+
+.nbwhisper-mini-talking-view-display-palette:hover {
+    background-color: #222222;
+    transition: background-color .5s;
+}
+
+.nbwhisper-mini-talking-view-display-area {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 256px;
+    height: 100%;
+    background-color: #1A1A1A;
+    border-radius: 4px;
+    transform-origin: right;
+    transition: transform 0.4s ease-in-out;
+    transform: scale(0, 1);
+}
+
+.nbwhisper-mini-talking-view-display-area.active {
+    transform: scale(1, 1);
+}
+
+.nbwhisper-mini-talking-view-display-area.leave {
+    transform: scale(0, 1);
+}
+
+.nbwhisper-mini-talking-view-display-palette-buttons {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 8px;
+}
+
+.nbwhisper-mini-talking-view-display-palette-button {
+    width: 56px;
+    height: 56px;
+    background-color: rgba(51, 51, 51, .7);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.nbwhisper-mini-talking-view-display-palette-button:hover {
+    background-color: rgba(34, 34, 34, .7);
+    transition: background-color .5s;
+}
+
+.nbwhisper-mini-talking-view-display-palette-maximize-button {
+    background-image: url(./resources/maximize_screen.svg);
+    background-size: 20px 16px;
+}
+
+.nbwhisper-mini-talking-view-display-palette-close-button {
+    background-image: url(./resources/minimize_screen.svg);
+    background-size: 18px 16px;
+}
