@@ -1,25 +1,32 @@
-"""The NBWhisper Server"""
-
-import os
-from . import (
-    server,
-)
+from ._version import __version__
+from .handlers import setup_handlers
 
 
-def load_jupyter_server_extension(nb_server_app):
-    nb_server_app.log.info('nbsearch extension started')
-    server.register_routes(nb_server_app, nb_server_app.web_app)
+def _jupyter_labextension_paths():
+    return [{
+        "src": "labextension",
+        "dest": "nbwhisper"
+    }]
 
 
-# nbextension
-def _jupyter_nbextension_paths():
-    notebook_ext = dict(section='notebook',
-                        src='nbextension',
-                        dest='nbwhisper',
-                        require='nbwhisper/main')
-    return [notebook_ext]
+def _jupyter_server_extension_points():
+    return [{
+        "module": "nbwhisper"
+    }]
 
 
-# server extension
-def _jupyter_server_extension_paths():
-    return [dict(module='nbwhisper')]
+def _load_jupyter_server_extension(server_app):
+    """Registers the API handler to receive HTTP requests from the frontend extension.
+
+    Parameters
+    ----------
+    server_app: jupyterlab.labapp.LabApp
+        JupyterLab application instance
+    """
+    setup_handlers(server_app, server_app.web_app)
+    name = "nbwhisper"
+    server_app.log.info(f"Registered {name} server extension")
+
+
+# For backward compatibility with notebook server - useful for Binder/JupyterHub
+load_jupyter_server_extension = _load_jupyter_server_extension
