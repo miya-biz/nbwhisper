@@ -1283,6 +1283,9 @@ async function initialize(platform: Platform) {
       // 招待中、参加中フラグを落とす
       u.is_invited = false;
       u.is_joined = false;
+      // ミュート、画面共有をリセット
+      u.is_mute = false;
+      u.is_sharing_display = false;
     });
     // 自身の通話クライアントIdを削除
     ownClient.talking_client_id = '';
