@@ -6,6 +6,7 @@ import { WaitingUserList } from './waitingUserList';
 import Enumerable from 'linq';
 import { RemoteMedia } from './remoteMedia';
 import { UserState } from './userState';
+import { IRemoteMediaMouse } from './iRemoteMediaMouse';
 
 // 参加者リスト
 export function TalkingUserList({
@@ -135,6 +136,10 @@ export class TalkingViewWidget extends ReactWidget {
   public onHungUp = new Signal<TalkingViewWidget, any>(this);
   public onResuestJoining = new Signal<TalkingViewWidget, User[]>(this);
   public onCancelRequest = new Signal<TalkingViewWidget, User>(this);
+  public onRemoteMediaMouseMove = new Signal<
+    TalkingViewWidget,
+    IRemoteMediaMouse
+  >(this);
 
   constructor(users: User[], ownUser: User, remoteStremas: MediaStream[]) {
     super();
@@ -207,6 +212,13 @@ export class TalkingViewWidget extends ReactWidget {
     }
   }
 
+  private _onRemoteMediaMouseMove(mouse: IRemoteMediaMouse) {
+    if (this.onRemoteMediaMouseMove === null) {
+      return;
+    }
+    this.onRemoteMediaMouseMove.emit(mouse);
+  }
+
   render(): JSX.Element {
     const isCalling = this._ownUser.getState() === UserState.Calling;
     return (
@@ -256,6 +268,7 @@ export class TalkingViewWidget extends ReactWidget {
                         .where(u => u.hasStream(x.id))
                         .firstOrDefault()?.is_mute ?? false
                     }
+                    onMouseMove={mouse => this._onRemoteMediaMouseMove(mouse)}
                   />
                 ))}
             </div>

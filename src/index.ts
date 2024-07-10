@@ -17,6 +17,8 @@ import { generateUuid } from './uuid';
 import { DummyCanvasWidget } from './dummyCanvasWidget';
 import { RequestTalkingWidget } from './requestTalkingWidget';
 import { Platform, PlatformType, getPlatform } from './platform';
+import { IRemoteMediaMouse } from './iRemoteMediaMouse';
+import { RemoteMouseCursorWidget } from './remoteMouseCursorWidget';
 
 async function getAudioStream(dummyCanvasWidget: DummyCanvasWidget) {
   const constraints = {
@@ -101,6 +103,8 @@ export class PushKind {
   static readonly ShareDisplay = 'ShareDisplay';
   // ミュート切り替え
   static readonly Mute = 'Mute';
+  // 共有画面上でのマウス移動
+  static readonly RemoteMediaMouseMove = 'RemoteMediaMouseMove';
 }
 
 // プッシュのパラメータ
@@ -140,6 +144,12 @@ interface IMutePushData extends IPushData {
   user_name: string;
   room_name: string;
   is_mute: boolean;
+}
+
+interface IRemoteMediaMouseMovePushData extends IPushData {
+  target: string;
+  user_name: string;
+  mouse: IRemoteMediaMouse;
 }
 
 async function initialize(platform: Platform) {
@@ -220,6 +230,10 @@ async function initialize(platform: Platform) {
   // ダミーキャンバスウィジェット
   const dummyCanvasWidget = new DummyCanvasWidget();
   Widget.attach(dummyCanvasWidget, document.body);
+
+  // 共有画面カーソルウィジェット
+  const remoteMouseCursorWidget = new RemoteMouseCursorWidget(ownUser);
+  Widget.attach(remoteMouseCursorWidget, document.body);
 
   // ウィジェットの更新
   const updateWidgets = () => {
@@ -736,6 +750,28 @@ async function initialize(platform: Platform) {
           // ウィジェット更新
           updateWidgets();
         }
+      }
+    } else if (pushData.kind == PushKind.RemoteMediaMouseMove) {
+      // 共有画面におけるマウス座標変更
+      const remoteMediaMouseMovePushData =
+        data as IRemoteMediaMouseMovePushData;
+      // 自身のマウス動作の場合は何もしない
+      if (remoteMediaMouseMovePushData.user_name == ownUser.name) {
+        return;
+      }
+      const mouse = remoteMediaMouseMovePushData.mouse;
+      if (
+        remoteMediaMouseMovePushData.target == ownUser.name &&
+        ownUser.is_sharing_display
+      ) {
+        // 自身の共有に対するマウス座標変更
+        // カーソルの位置を更新する
+        if (mouse.videoWidth <= 0 || mouse.videoHeight <= 0) {
+          return;
+        }
+        const cursorx = (mouse.x * window.innerWidth) / mouse.videoWidth;
+        const cursory = (mouse.y * window.innerHeight) / mouse.videoHeight;
+        remoteMouseCursorWidget.move(cursorx, cursory);
       }
     }
   });
@@ -1350,6 +1386,20 @@ async function initialize(platform: Platform) {
     talkingViewWidget.showWidget();
     miniTalkingViewWidget.hide();
     miniTalkingViewWidget.update();
+  });
+
+  // 共有画面上でマウスを動かしたとき
+  talkingViewWidget.onRemoteMediaMouseMove.connect(async (_, mouse) => {
+    const pushData: IRemoteMediaMouseMovePushData = {
+      kind: PushKind.RemoteMediaMouseMove,
+      target:
+        Enumerable.from(allUsers)
+          .where(u => u.is_sharing_display)
+          .firstOrDefault()?.name ?? '',
+      user_name: ownUser.name,
+      mouse: mouse
+    };
+    await sfuClientManager.sendPushToWaitingChannel(pushData);
   });
 
   // 自身のユーザー情報を初回プッシュ
